@@ -60,6 +60,8 @@ calculate;isAdult;;;;yes;;;if(${ageInDays} = 'NaN' or string-length(${ageInDays}
 calculate;ageInDaysNeonate;;;;yes;;;if(${ageInDays} = 'NaN' or string-length(${ageInDays}) = 0, ${age_neonate_days}, ${ageInDays});;;;
 note;Id10008_check;(Id10008_check) It is not possible to select that the respondent is the child of the deceased and enter that the deceased is a neonate or child. Please go back and correct the selection. ;;selected(${Id10008}, 'child')  and (selected(${isNeonatal}, '1') or selected(${isChild}, '1')) ;yes;;;;;;;
 select_one select_18;Id10058;(Id10058) Where did the deceased die? ;;;yes;;;;;;;
+select_one YES_NO_DK_REF;Id10487;(Id10487) In the two weeks before death, did (s)he live with, visit, or care for someone who had any COVID-19 symptoms or a positive COVID-19 test?;COVID-19 symptoms include fever, difficulty breathing, cough, extreme fatigue, and changes in sense of smell or taste. In case of neonates or young children, please omit “care for”.;;yes;;;;;;;
+select_one YES_NO_DK_REF;Id10488;(Id10488) In the two weeks before death, did (s)he travel to an area where COVID-19 is known to be present?;Based on self-report of the respondent. If there is doubt, note the location in the narrative and check with the respective supervisor.;;yes;;;;;;;
 ;;;;;;;;;;;;
 select_one YES_NO;Id10051;(Id10051) [Is there a need to collect additional demographic data on the deceased?];If you choose 'No', this question allows to skip asking details about place of residence, education, and family. The question on marriage status will always be asked for adults.;;yes;;;;;;;
 select_one select_500;Id10052;(Id10052) What was her/his citizenship/nationality?;;(selected(${Id10051}, 'yes'));;;;;;;;
@@ -163,6 +165,9 @@ select_one YES_NO_DK_REF;Id10142;(Id10142) Was there any diagnosis by a health p
 select_one YES_NO_DK_REF;Id10143;(Id10143) Was there any diagnosis by a health professional of kidney disease?;Remind the respondent that we are asking for the diagnosis assessed by a doctor, health worker, or other health professional during the final illness.;;yes;;;;;;;
 select_one YES_NO_DK_REF;Id10144;(Id10144) Was there any diagnosis by a health professional of liver disease?;Remind the respondent that we are asking for the diagnosis assessed by a doctor, health worker, or other health professional during the final illness.;;yes;;;;;;;
 end group;;;;;;;;;;;;
+select_one YES_NO_DK_REF;Id10482;(Id10482) Was there any diagnosis by a health professional of COVID-19?;;;yes;;;;;;;
+select_one YES_NO_DK_REF;Id10483;(Id10483) Did s(h)e have a recent test by a health professional for COVID-19?;;;yes;;;;;;;
+select_one select_531;Id10484;(Id10484) What was the result? ;Prompt for the result of the most recent test in case the deceased had more than 1 test performed;selected(${Id10483}, 'yes');;;;;;;;
 begin group;signs_symptoms_final_illness;General signs and symptoms associated with final illness;;not(selected(${Id10114}, 'yes'));;;;;;;;
 select_one YES_NO_DK_REF;Id10147;(Id10147) Did (s)he have a fever?;;;yes;;;;;;;
 integer;Id10148_a;(Id10148_a) How many days did the fever last?;"If less than 1 day or 24 hours, enter 0 days. Use 1 week = 7 days to determine number of days. For don't know, enter ""99."" For refused, enter ""88.""";selected(${Id10147}, 'yes') and selected(${isNeonatal}, '1');yes;;;;;(.>=0 and .<=${ageInDaysNeonate}) or .=99 or .=88;Please enter a value less then neonatal age in days at death. ;
@@ -381,6 +386,8 @@ select_one YES_NO_DK_REF;Id10288;(Id10288) During the illness that led to death,
 select_one YES_NO_DK_REF;Id10289;(Id10289) During the illness that led to death, did the baby have yellow skin, palms (hand) or soles (foot)?;;;yes;;;;;;;
 select_one YES_NO_DK_REF;Id10290;(Id10290) Did the baby or infant appear to be healthy and then just die suddenly?;Suddenly means died unexpectedly within 24 hours of being in regular health. ;;yes;;;;;;;
 end group;;;;;;;;;;;;
+select_one YES_NO_DK_REF;Id10485;(Id10485) Did s(h)e suffer from extreme fatigue? ;Probe whether the deceased felt so tired that (s)he found it hard to get out the bed and do the routine things like taking a shower or changing clothes;selected(${isAdult}, '1');yes;;;;;;;
+select_one YES_NO_DK_REF;Id10486;(Id10486) Did (s)he experience a new loss, change or decreased sense of smell or taste?  ;;selected(${isAdult}, '1');yes;;;;;;;
 end group;;;;;;;;;;;;
 begin group;pregnancy_women;Signs and symptoms associated with pregnancy and women;;(selected(${isAdult}, '1')) and (${Id10019} = 'female' or ${Id10019} = 'undetermined');;;;;;;;
 select_one YES_NO_DK_REF;Id10294;(Id10294) Did she have any swelling or lump in the breast?;;;yes;;;;;;;
